@@ -1,0 +1,16 @@
+{
+  "name": "vn-capcut-generator",
+  "version": "0.2.0",
+  "private": true,
+  "description": "弹丸论破同人视觉小说 → CapCut 草稿生成器（Windows 本地原型，自包含草稿 / 分层转场 / 打字机动画）",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test_parser.js",
+    "build:final": "node build_final.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@napi-rs/canvas": "^1.1.0"
+  }
+}

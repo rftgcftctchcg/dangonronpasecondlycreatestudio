@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>弹丸论破同人视觉小说生成器</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">VN</span>
+      <div>
+        <h1>弹丸论破同人视觉小说生成器</h1>
+        <p>本地剧本 → 分镜素材 → 画面 → BGM → CapCut 草稿</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="draftRoot" class="muted"></span>
+      <button id="refreshBtn" class="btn ghost">刷新</button>
+    </div>
+  </header>
+
+  <nav class="stepper" id="stepper">
+    <button class="step active" data-tab="script"><b>1</b> 剧本</button>
+    <button class="step" data-tab="shots"><b>2</b> 分镜素材</button>
+    <button class="step" data-tab="bgm"><b>3</b> BGM</button>
+    <button class="step" data-tab="export"><b>4</b> 导出</button>
+  </nav>
+
+  <main>
+    <section class="tab active" id="tab-script">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>剧本</h2>
+          <div>
+            <button id="importBtn" class="btn ghost">导入 TXT</button>
+            <button id="sampleBtn" class="btn ghost">填入示例</button>
+            <button id="parseBtn" class="btn primary">解析并保存</button>
+          </div>
+        </div>
+        <p class="muted">格式：[组 N:begin][STD] / [组 N:begin][TST] / [分镜 N:begin] / 说话人：台词 / [分镜 N:end] / [组 N:end]</p>
+        <textarea id="scriptText" spellcheck="false"></textarea>
+        <div id="parseReport"></div>
+      </div>
+    </section>
+
+    <section class="tab" id="tab-shots">
+      <div class="workspace">
+        <aside class="panel tree-panel">
+          <div class="panel-head"><h2>分镜</h2><span id="stats" class="muted"></span></div>
+          <div id="tree"></div>
+        </aside>
+        <div class="panel detail-panel">
+          <div id="detail"></div>
+        </div>
+        <aside class="panel preview-panel">
+          <div class="panel-head"><h2>预览</h2><button id="previewBtn" class="btn ghost small">刷新</button></div>
+          <div id="previewWrap"></div>
+          <div id="missingBox" class="missing"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="tab" id="tab-bgm">
+      <div class="panel">
+        <div class="panel-head"><h2>按组配置 BGM</h2><span class="muted">留空即静音</span></div>
+        <div id="bgmList" class="bgm-grid"></div>
+      </div>
+    </section>
+
+    <section class="tab" id="tab-export">
+      <div class="panel">
+        <div class="panel-head"><h2>导出 CapCut 草稿</h2><span class="muted" id="exportHint"></span></div>
+        <div class="export-row">
+          <label class="check"><input type="checkbox" id="installChk" /> 生成后尝试安装到 CapCut 草稿目录</label>
+          <button id="exportBtn" class="btn primary big">生成 CapCut 草稿</button>
+        </div>
+        <div id="exportResult"></div>
+        <div id="outputList" class="output-list"></div>
+        <div class="help">
+          <h3>在 CapCut 中打开</h3>
+          <ol>
+            <li>关闭 CapCut（如果正在运行）。</li>
+            <li>勾选“生成后尝试安装”，或把生成的草稿文件夹复制到 CapCut 草稿目录（上方显示的路径）。</li>
+            <li>重启 CapCut，在草稿列表中找到新草稿并打开。</li>
+            <li>文字在“台词”和“姓名”两条文字轨上，可直接修改；台词带 1/4~1/3 时长的“打字机”入场动画。</li>
+          </ol>
+          <p class="muted">草稿已自包含：背景、人物、对话框、开庭视频、BGM、字体全部复制在草稿的 <code>materials/</code> 目录。在 CapCut 里修改文字不会回写本工具；重新生成会创建新草稿。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

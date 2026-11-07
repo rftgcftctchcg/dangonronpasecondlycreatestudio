@@ -1,0 +1,25 @@
+# OS junk
+Thumbs.db
+desktop.ini
+
+# Local scratch / downloads
+tmp/
+pylibs/
+npm-cache/
+_probe/
+debug.log
+flutter_windows_*.zip
+
+# Large source media at the workspace root (the app keeps the needed copies)
+对话框_test.mov
+对话框_std.png
+学级裁判背景.jpg
+学级裁判开庭.mov
+
+# Node
+app/node_modules/
+npm-debug.log*
+
+# Generated drafts and render caches
+app/data/sample/output/
+app/data/sample/render/

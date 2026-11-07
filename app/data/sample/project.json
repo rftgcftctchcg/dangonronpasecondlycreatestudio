@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "name": "示例项目",
+  "script": "[组 1:begin][STD]\n[分镜 1:begin]\n足立零：XXX\n王马小吉：222\n[分镜 1:end]\n[分镜 2:begin]\n足立零：这是第二个分镜，背景和人物都可以在界面里替换。\n[分镜 2:end]\n[组 1:end]\n\n[组 2:begin][TST]\n[分镜 1:begin]\n足立零：学级裁判，开始！\n王马小吉：唔噗噗……这次一定不会输。\n[分镜 1:end]\n[组 2:end]\n\n[组 3:begin][STD]\n[分镜 1:begin]\n旁白：这是一段较长的示例文本，用来演示自动换行与分页。真实剧本里可以继续写很多内容，生成器会按照阅读速度计算每一页的停留时间。\n[分镜 1:end]\n[组 3:end]\n",
+  "createdAt": "2026-11-07T08:54:07.914Z",
+  "updatedAt": "2026-11-07T11:36:17.316Z",
+  "settings": {
+    "canvas": {
+      "width": 1920,
+      "height": 1080
+    },
+    "fps": 30,
+    "font": {
+      "path": "assets/NotoSansSC.otf",
+      "displayName": "Noto Sans SC",
+      "dialogueSize": 44,
+      "nameSize": 34,
+      "lineHeight": 1.35,
+      "maxLines": 3,
+      "maxWidth": 1740,
+      "dialogueColor": "#ffffff",
+      "outlineColor": "#000000",
+      "outlineWidth": 3,
+      "nameColors": [
+        "#ff6b6b",
+        "#4dabf7",
+        "#69db7c",
+        "#ffa94d",
+        "#b197fc",
+        "#66d9e8"
+      ]
+    },
+    "reading": {
+      "speed": 0.13,
+      "min": 1.2,
+      "max": 10,
+      "base": 0.35,
+      "punctuation": 0.06,
+      "version": 2
+    },
+    "nameTag": {
+      "x": 80,
+      "y": 700,
+      "height": 54,
+      "paddingX": 18,
+      "radius": 8,
+      "background": "rgba(0,0,0,0.72)"
+    },
+    "dialogueBox": {
+      "x": 90,
+      "y": 780,
+      "width": 1740,
+      "height": 260
+    },
+    "capcut": {
+      "dialogueFontSize": 4,
+      "nameFontSize": 3.2,
+      "nameX": -0.45,
+      "dialogueX": -0.453,
+      "nameY": -0.173,
+      "dialogueY": -0.667,
+      "typewriter": {
+        "enabled": true,
+        "resourceId": "7210980292243231233",
+        "name": "Typewriter",
+        "ratio": 0.28,
+        "min": 0.3,
+        "max": 1.6
+      }
+    },
+    "tst": {
+      "frameRate": 30,
+      "loopMode": "pingpong"
+    },
+    "bgm": {
+      "fadeIn": 0.3,
+      "fadeOut": 0.3,
+      "loopShort": true
+    },
+    "transition": {
+      "enabled": true,
+      "duration": 0.6
+    },
+    "trialOpening": {
+      "enabled": true,
+      "path": "assets/trial_opening.mov",
+      "duration": 2.972
+    }
+  },
+  "groups": [
+    {
+      "key": "g1",
+      "index": 1,
+      "label": "组 1",
+      "type": "STD",
+      "typeExplicit": true,
+      "line": 1,
+      "shots": [
+        {
+          "key": "g1s1",
+          "index": 1,
+          "label": "分镜 1",
+          "line": 2,
+          "lines": [
+            {
+              "key": "g1s1l1",
+              "index": 1,
+              "speaker": "足立零",
+              "text": "XXX",
+              "line": 3,
+              "raw": "足立零：XXX"
+            },
+            {
+              "key": "g1s1l2",
+              "index": 2,
+              "speaker": "王马小吉",
+              "text": "222",
+              "line": 4,
+              "raw": "王马小吉：222"
+            }
+          ],
+          "background": "assets/sample_bg.png",
+          "combined": null,
+          "characters": [],
+          "lineDurations": {}
+        },
+        {
+          "key": "g1s2",
+          "index": 2,
+          "label": "分镜 2",
+          "line": 6,
+          "lines": [
+            {
+              "key": "g1s2l1",
+              "index": 1,
+              "speaker": "足立零",
+              "text": "这是第二个分镜，背景和人物都可以在界面里替换。",
+              "line": 7,
+              "raw": "足立零：这是第二个分镜，背景和人物都可以在界面里替换。"
+            }
+          ],
+          "background": "assets/sample_bg.png",
+          "combined": null,
+          "characters": [],
+          "lineDurations": {}
+        }
+      ],
+      "background": "assets/sample_bg.png",
+      "bgm": "assets/bgm_sample.mp3",
+      "bgmDuration": 12
+    },
+    {
+      "key": "g2",
+      "index": 2,
+      "label": "组 2",
+      "type": "TST",
+      "typeExplicit": true,
+      "line": 11,
+      "shots": [
+        {
+          "key": "g2s1",
+          "index": 1,
+          "label": "分镜 1",
+          "line": 12,
+          "lines": [
+            {
+              "key": "g2s1l1",
+              "index": 1,
+              "speaker": "足立零",
+              "text": "学级裁判，开始！",
+              "line": 13,
+              "raw": "足立零：学级裁判，开始！"
+            },
+            {
+              "key": "g2s1l2",
+              "index": 2,
+              "speaker": "王马小吉",
+              "text": "唔噗噗……这次一定不会输。",
+              "line": 14,
+              "raw": "王马小吉：唔噗噗……这次一定不会输。"
+            }
+          ],
+          "background": "assets/trial_bg.jpg",
+          "combined": null,
+          "characters": [],
+          "lineDurations": {}
+        }
+      ],
+      "background": "assets/trial_bg.jpg",
+      "bgm": null
+    },
+    {
+      "key": "g3",
+      "index": 3,
+      "label": "组 3",
+      "type": "STD",
+      "typeExplicit": true,
+      "line": 18,
+      "shots": [
+        {
+          "key": "g3s1",
+          "index": 1,
+          "label": "分镜 1",
+          "line": 19,
+          "lines": [
+            {
+              "key": "g3s1l1",
+              "index": 1,
+              "speaker": "旁白",
+              "text": "这是一段较长的示例文本，用来演示自动换行与分页。真实剧本里可以继续写很多内容，生成器会按照阅读速度计算每一页的停留时间。",
+              "line": 20,
+              "raw": "旁白：这是一段较长的示例文本，用来演示自动换行与分页。真实剧本里可以继续写很多内容，生成器会按照阅读速度计算每一页的停留时间。"
+            }
+          ],
+          "background": "assets/sample_bg.png",
+          "combined": null,
+          "characters": [],
+          "lineDurations": {}
+        }
+      ],
+      "background": "assets/sample_bg.png",
+      "bgm": null
+    }
+  ],
+  "assets": {
+    "backgrounds": [],
+    "characters": [],
+    "bgm": []
+  },
+  "source": {
+    "script": "script.txt"
+  },
+  "speakerColors": {
+    "足立零": "#69db7c",
+    "王马小吉": "#4dabf7",
+    "旁白": "#b197fc"
+  }
+}
