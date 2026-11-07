@@ -6,7 +6,7 @@
 
 ![界面预览](docs/ui-shots.png)
 
-![分层草稿时间线](docs/capcut-layers.png)
+![主轨连续与文字校准](docs/capcut-fixed.png)
 
 ---
 
