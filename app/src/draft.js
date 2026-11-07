@@ -122,7 +122,7 @@ function makeTextMaterial(store, opts) {
   p.shadow_alpha = 0.8;
   p.shadow_distance = 4.0;
   p.shadow_smoothing = 0.45;
-  p.line_spacing = opts.lineSpacing != null ? opts.lineSpacing : 0.1;
+  p.line_spacing = opts.lineSpacing != null ? opts.lineSpacing : 0.02;
   p.alignment = opts.alignment != null ? opts.alignment : 0;
   p.fixed_width = -1.0;
   p.line_max_width = opts.lineMaxWidth != null ? opts.lineMaxWidth : 0.906;
@@ -363,17 +363,18 @@ async function buildCapcutDraft(options) {
     return id;
   };
 
-  const bgTrack = makeTrack('video', '背景');
+  const mainTrack = makeTrack('video', '主画面');
   const charTrack = makeTrack('video', '人物');
   const boxTrack = makeTrack('video', '对话框');
-  const openingTrack = makeTrack('video', '开庭');
-  const tstTrack = makeTrack('video', '学裁画面');
   const dialogueTrack = makeTrack('text', '台词');
   const nameTrack = makeTrack('text', '姓名');
   const transitionTrack = makeTrack('video', '转场');
   const openingAudioTrack = makeTrack('audio', '开庭音效');
   const audioTrack = makeTrack('audio', 'BGM');
-  tracks.push(bgTrack, charTrack, boxTrack, openingTrack, tstTrack, dialogueTrack, nameTrack, transitionTrack, openingAudioTrack, audioTrack);
+  // CapCut's main track auto-joins clips and cannot contain gaps. Every clip
+  // that occupies the full frame (STD background, trial opening, TST composite)
+  // must live on this one contiguous track, otherwise later backgrounds shift.
+  tracks.push(mainTrack, charTrack, boxTrack, dialogueTrack, nameTrack, transitionTrack, openingAudioTrack, audioTrack);
 
   const fontSource = resolveAsset(projectDir, project.settings.font.path) || path.join(APP_DIR, 'assets', 'fonts', 'NotoSansSC.otf');
   const fontPath = copyInto(fontSource, 'fonts', 'NotoSansSC');
@@ -386,6 +387,8 @@ async function buildCapcutDraft(options) {
   const dialogueX = capcut.dialogueX != null ? capcut.dialogueX : -0.453;
   const nameX = capcut.nameX != null ? capcut.nameX : -0.45;
   const typewriter = capcut.typewriter || {};
+  const nameAlignment = capcut.nameAlignment != null ? capcut.nameAlignment : 1;
+  const dialogueAlignment = capcut.dialogueAlignment != null ? capcut.dialogueAlignment : 0;
   const projectAbs = (rel) => (rel ? path.resolve(projectDir, rel) : null);
 
   const videoExtras = () => [
@@ -451,7 +454,7 @@ async function buildCapcutDraft(options) {
     if (g.opening) {
       const openingAbs = resolveAsset(projectDir, g.opening.path) || path.join(APP_DIR, 'assets', 'trial_opening.mov');
       const openingAudio = await extractAudio(openingAbs, path.join(materialsDir, 'audio', 'trial_opening.m4a'));
-      addVideo(openingTrack, openingAbs, g.opening.startMs, g.opening.endMs, {
+      addVideo(mainTrack, openingAbs, g.opening.startMs, g.opening.endMs, {
         preferred: 'trial_opening',
         volume: openingAudio ? 0.0 : 1.0,
         hasAudio: !openingAudio,
@@ -483,11 +486,11 @@ async function buildCapcutDraft(options) {
 
     if (vis.type === 'tst' && vis.video) {
       const file = projectAbs(vis.video) || vis.video;
-      addVideo(tstTrack, file, g.contentStartMs, g.contentEndMs, { preferred: `tst_${g.key}`, subdir: 'video' });
+      addVideo(mainTrack, file, g.contentStartMs, g.contentEndMs, { preferred: `tst_${g.key}`, subdir: 'video' });
     } else if (vis.type === 'std') {
       for (const shot of g.shots) {
         const bg = vis.backgrounds && vis.backgrounds[shot.key];
-        if (bg) addPhoto(bgTrack, projectAbs(bg) || bg, shot.startMs, shot.endMs, `bg_${g.key}_${shot.key}`);
+        if (bg) addPhoto(mainTrack, projectAbs(bg) || bg, shot.startMs, shot.endMs, `bg_${g.key}_${shot.key}`);
         const chars = vis.characters && vis.characters[shot.key];
         if (chars) addPhoto(charTrack, projectAbs(chars) || chars, shot.contentStartMs, shot.contentEndMs, `char_${g.key}_${shot.key}`);
         addPhoto(boxTrack, stdBoxPath, shot.contentStartMs, shot.contentEndMs, 'std_box_seg');
@@ -510,10 +513,10 @@ async function buildCapcutDraft(options) {
               size: nameSize,
               color,
               borderColor: '#000000',
-              borderWidth: 0.06,
-              background: '#000000',
-              lineMaxWidth: 0.5,
-              alignment: 0,
+              borderWidth: 0.08,
+              shadow: false,
+              lineMaxWidth: 0.82,
+              alignment: nameAlignment,
             });
             const animId = makeExtra(materials.material_animations, 'material_animations');
             nameTrack.segments.push(
@@ -537,9 +540,9 @@ async function buildCapcutDraft(options) {
             color: '#FFFFFF',
             borderColor: '#000000',
             borderWidth: 0.08,
-            shadow: true,
-            lineMaxWidth: 0.906,
-            alignment: 0,
+            shadow: false,
+            lineMaxWidth: 0.82,
+            alignment: dialogueAlignment,
           });
           const animId2 = makeExtra(materials.material_animations, 'material_animations');
           if (typewriter.enabled !== false && dur > 300000) {

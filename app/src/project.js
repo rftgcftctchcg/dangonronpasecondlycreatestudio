@@ -28,12 +28,17 @@ const DEFAULT_SETTINGS = {
   dialogueBox: { x: 90, y: 780, width: 1740, height: 260 },
   // CapCut text-layer calibration. transform.x/y are fractions of canvas W/H.
   capcut: {
-    dialogueFontSize: 4.0,
-    nameFontSize: 3.2,
-    nameX: -0.45,
-    dialogueX: -0.453,
-    nameY: -0.173,
-    dialogueY: -0.667,
+    version: 2,
+    // Calibrated against a real CapCut 9.0.0 draft (0828):
+    // UI shows name 8 / dialogue 7, positions -1547,-391 and -349,-794.
+    dialogueFontSize: 6.831579208374023,
+    nameFontSize: 8.105263157894736,
+    nameX: -0.8059006211180124,
+    dialogueX: -0.1816415194398868,
+    nameY: -0.36187845303867405,
+    dialogueY: -0.7348066298342542,
+    nameAlignment: 1,
+    dialogueAlignment: 0,
     // CapCut's free built-in text intro animation "Typewriter" (打字机).
     typewriter: {
       enabled: true,
@@ -157,11 +162,16 @@ function assignSpeakerColors(project) {
 function loadProject(projectDir) {
   const file = path.join(projectDir, 'project.json');
   const p = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const oldCapcutVersion = p.settings && p.settings.capcut ? p.settings.capcut.version : undefined;
   // Merge new defaults into projects created by older versions.
   p.settings = mergeDeep(DEFAULT_SETTINGS, p.settings || {});
   if (!p.settings.reading.version) {
     // Migrate the old 0.18s/char + 0.8s base pacing to the 20 chars ≈ 3s rule.
     p.settings.reading = { ...deepClone(DEFAULT_SETTINGS.reading), version: 2 };
+  }
+  if (!oldCapcutVersion || oldCapcutVersion < 2) {
+    // Migrate old approximate text transforms to the values verified in CapCut.
+    p.settings.capcut = deepClone(DEFAULT_SETTINGS.capcut);
   }
   ensureFont(resolveProjectPath(projectDir, p.settings.font.path));
   assignSpeakerColors(p);
