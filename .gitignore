@@ -9,6 +9,7 @@ npm-cache/
 _probe/
 debug.log
 flutter_windows_*.zip
+*.bundle
 
 # Large source media at the workspace root (the app keeps the needed copies)
 对话框_test.mov

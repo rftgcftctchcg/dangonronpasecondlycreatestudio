@@ -133,7 +133,7 @@ flutter doctor
 ## Git 仓库
 
 - 远程：`git@github.com:rftgcftctchcg/dangonronpasecondlycreatestudio.git`
-- 使用 SSH Key 推送（本机 `~/.ssh/id_ed25519` 已通过 GitHub 认证）。
+- 使用 SSH Key 推送（本机 `~/.ssh/id_ed25519_dangonron`，已通过 GitHub 认证为 `rftgcftctchcg`）。
 
 ```bat
 git clone git@github.com:rftgcftctchcg/dangonronpasecondlycreatestudio.git
