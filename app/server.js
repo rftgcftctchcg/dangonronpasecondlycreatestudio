@@ -194,6 +194,19 @@ function installDraft(localFolder, draftName) {
     }
   }
 
+  // draft_meta_info's root path points at the build output directory; update it
+  // to CapCut's draft root so the installed copy is fully self-contained.
+  const installedMetaFile = path.join(dest, 'draft_meta_info.json');
+  if (fs.existsSync(installedMetaFile)) {
+    try {
+      const installedMeta = JSON.parse(fs.readFileSync(installedMetaFile, 'utf8'));
+      installedMeta.draft_root_path = root.replace(/\\/g, '/');
+      fs.writeFileSync(installedMetaFile, JSON.stringify(installedMeta, null, 1), 'utf8');
+    } catch (e) {
+      /* keep the path-rewritten meta */
+    }
+  }
+
   let indexUpdated = false;
   if (index) {
     try {
